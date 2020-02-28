@@ -84,3 +84,39 @@ We expect the implementation to query the official ​Twitter​ and ​Github�
 Please if you have any doubt don’t hesitate to get in contact with us, we will happily try to resolve/clarify all your questions.
 
 Choose the tools that you prefer or consider the best for this task, here at jobandtalent we happily use Flask, SqlAlchemy, Alembic, Docker and many others, but feel free to use your favourites frameworks/tools.
+
+
+## Commands
+* Run:
+```shell script
+make run
+```
+
+Check the API with http://127.0.0.1:8000/_health
+
+* Tests:
+```shell script
+make tests
+```
+
+* Stop:
+```shell script
+make stop
+```
+
+* Delete:
+```shell script
+make rm
+```
+
+## Documentation
+
+http://127.0.0.1:8000/docs or http://127.0.0.1:8000/redoc
+
+## Considerations
+* Using Docker for scalability.
+* API created with [FastAPI](https://fastapi.tiangolo.com), it is a new microframework for me, and I rescue it
+ from my TODO list, I think the challenge is a good moment to learn it.
+    * OpenAPI documentation, auto-generated.
+* PyTest and TestClient for easy e2e tests.
+* Check PEP8 with pycodestyle with tests.

@@ -1,0 +1,8 @@
+fastapi==0.49.0
+uvicorn==0.11.3
+requests==2.23.0
+
+# dev
+pytest==5.3.5
+pytest-mock==2.0.0
+pytest-pycodestyle==2.0.0

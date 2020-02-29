@@ -87,6 +87,12 @@ Choose the tools that you prefer or consider the best for this task, here at job
 
 
 ## Commands
+Before to run, you need to add a file called *secrets.py* with the next secrets keys:
+* TWITTER_API_KEY
+* TWITTER_API_SECRET_KEY
+* TWITTER_ACCESS_TOKEN
+* TWITTER_ACCESS_TOKEN_SECRET
+
 * Run:
 ```shell script
 make run
@@ -120,3 +126,7 @@ http://127.0.0.1:8000/docs or http://127.0.0.1:8000/redoc
     * OpenAPI documentation, auto-generated.
 * PyTest and TestClient for easy e2e tests.
 * Check PEP8 with pycodestyle with tests.
+
+## Future task
+- Twitter API: to improve the connections.
+- Twitter API: manage the error: rate limit.

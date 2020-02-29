@@ -5,6 +5,6 @@ from app.main import app
 
 
 @pytest.fixture
-def client():
+def client(socket_enabled):
     with TestClient(app) as client:
         yield client

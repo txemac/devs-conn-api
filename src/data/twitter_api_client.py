@@ -1,4 +1,5 @@
 from typing import List
+from typing import Union
 
 from twitter import Api
 from twitter import TwitterError
@@ -25,44 +26,16 @@ def _get_twitter_api_client():
     return _twitter_api_client
 
 
-def _get_friends(
+def get_friends(
         username: str
-) -> List[str]:
+) -> Union[str, List[str]]:
     """
-    Get a list of screen_name of friends from a user.
+    Get a list of friends from a user.
 
     :param str username: username
-    :return List: friends
-    """
-    return [u.screen_name for u in _get_twitter_api_client().GetFriends(screen_name=username)]
-
-
-def is_valid_user(
-        username: str
-) -> bool:
-    """
-    Check if the username is a valid user.
-
-    :param str username: username
-    :return bool: is valid
+    :return list: friends or error
     """
     try:
-        _get_twitter_api_client().GetUser(screen_name=username)
+        return [u.screen_name for u in _get_twitter_api_client().GetFriends(screen_name=username)]
     except TwitterError:
-        return False
-    return True
-
-
-def is_friends(
-        username_1: str,
-        username_2: str,
-) -> bool:
-    """
-    Return True if username 1 follows username 2 on twitter, and 2 follows 1.
-
-    :return bool: friends
-    """
-    if username_2 in _get_friends(username=username_1) and \
-            username_1 in _get_friends(username=username_2):
-        return True
-    return False
+        return f"{username} is no a valid user in twitter"

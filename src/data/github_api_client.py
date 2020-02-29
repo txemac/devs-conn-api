@@ -1,8 +1,8 @@
+from typing import List
 from typing import Union
 
 from github import Github
-from github import UnknownObjectException
-from github.NamedUser import NamedUser
+from github import GithubException
 
 import secrets
 
@@ -24,16 +24,19 @@ def _get_github_api_client():
     return _github_api_client
 
 
-def get_user(
+def get_organisations(
         username: str,
-) -> Union[NamedUser, None]:
+) -> Union[List[str], str]:
     """
-    Get user.
+    Get list of organisations from user.
 
     :param str username: username
     :return NamedUser: GitHub user
     """
     try:
-        return _get_github_api_client().get_user(login=username)
-    except UnknownObjectException:
-        return None
+        user = _get_github_api_client().get_user(login=username)
+        orgs = user.get_orgs()
+        result = [x.login for x in orgs]
+        return result
+    except GithubException:
+        return f"{username} is no a valid user in github"

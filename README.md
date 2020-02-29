@@ -24,7 +24,7 @@ An example of a request to this endpoint for the handles @dev1 and @dev2 would b
 ```shell script
 GET /connected/realtime/dev1/dev2
 ```
-We expect the endpoint to return if the developers are connected and what GitHub organizations they have in common. The response should be in JSON format with the following structure:
+We expect the endpoint to return if the developers are connected and what GitHub organisations they have in common. The response should be in JSON format with the following structure:
 * Case they are not connected:
 ```json
 {

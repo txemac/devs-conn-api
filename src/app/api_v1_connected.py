@@ -3,17 +3,24 @@ from typing import List
 from typing import Union
 
 from fastapi import APIRouter
+from fastapi import Depends
+from sqlalchemy.orm import Session
 from starlette.status import HTTP_200_OK
 
 from app.utils import get_connections
+from data import get_db
 from data.api_clients import github_api_client
 from data.api_clients import twitter_api_client
+from data.models.realtime import Realtime
+from data.schemas import RealtimePost
 
 api_v1_connected = APIRouter()
 
 
 @api_v1_connected.get('/realtime/{dev1}/{dev2}', status_code=HTTP_200_OK)
 def get_real_time(
+        *,
+        db_session: Session = Depends(get_db),
         dev1: str,
         dev2: str,
 ) -> Dict[str, Union[bool, List[str]]]:
@@ -40,5 +47,16 @@ def get_real_time(
     response = dict(connected=connected)
     if connected is True:
         response.update(organisations=organisations)
+
+    # save
+    Realtime.create(
+        db_session=db_session,
+        data=RealtimePost(
+            user_1=dev1,
+            user_2=dev2,
+            connected=connected,
+            organisations=organisations,
+        )
+    )
 
     return response

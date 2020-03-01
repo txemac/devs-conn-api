@@ -11,6 +11,8 @@ from starlette.testclient import TestClient
 from app.main import app
 from data import Base
 from data import get_db
+from data.models.organisation import Organisation
+from data.models.user import User
 from data.schemas import OrganisationPost
 from data.schemas import UserPost
 
@@ -60,11 +62,29 @@ def session():
     db_session.close()
 
 
-@pytest.fixture
-def new_user():
-    return UserPost(name='txemac')
+@pytest.fixture()
+def data_user():
+    return dict(name='tester')
 
 
-@pytest.fixture
-def new_organisation():
-    return OrganisationPost(name='organisation_1')
+@pytest.fixture()
+def new_user(session, data_user):
+    data = UserPost(name=data_user['name'])
+    return User.create(
+        db_session=session,
+        data=data
+    )
+
+
+@pytest.fixture()
+def data_organisation():
+    return dict(name='tester')
+
+
+@pytest.fixture()
+def new_organisation(session, data_organisation):
+    data = OrganisationPost(name=data_organisation['name'])
+    return Organisation.create(
+        db_session=session,
+        data=data
+    )

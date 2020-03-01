@@ -6,8 +6,8 @@ from fastapi import APIRouter
 from starlette.status import HTTP_200_OK
 
 from app.utils import get_connections
-from data import github_api_client
-from data import twitter_api_client
+from data.api_clients import github_api_client
+from data.api_clients import twitter_api_client
 
 api_v1_connected = APIRouter()
 
@@ -36,8 +36,8 @@ def get_real_time(
         github_user_2=github_user_2,
     )
 
+    # create response
     response = dict(connected=connected)
-
     if connected is True:
         response.update(organisations=organisations)
 

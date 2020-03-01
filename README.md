@@ -124,8 +124,13 @@ http://127.0.0.1:8000/docs or http://127.0.0.1:8000/redoc
 * API created with [FastAPI](https://fastapi.tiangolo.com), it is a new microframework for me, and I rescue it
  from my TODO list, I think the challenge is a good moment to learn it.
     * OpenAPI documentation, auto-generated.
+    * Modeling objects with Pydantic.
+    * The API of connected is created inside of APIRoute. Looking cleaning and easy versions.
 * PyTest and TestClient for easy e2e tests.
+    * Using mock in tests with external connections.
 * Check PEP8 with pycodestyle with tests.
+* PostgreSQL and SQLAlchemy for database and models.
+* Create external API clients for GitHub and Twitter, with methods necessary to read info.
 
 ## Future task
 - Twitter API: to improve the connections.

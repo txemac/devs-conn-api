@@ -15,7 +15,7 @@ Your submission is going to be assessed in the following dimensions:
 In this exercise, you will have to create a REST API which will return whether two “developers”
 are fully connected or not. Given a pair of developer handles they are considered connected if:
 * They follow each other on Twitter.
-* They have at least a Github organization in common.
+* They have at least a Github organisation in common.
 
 Assume that people having the same handle both in Twitter and Github are actually the same person.
 

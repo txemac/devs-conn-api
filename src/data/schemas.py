@@ -24,17 +24,23 @@ class UserDB(UserPost):
 
 
 class RealtimeGet(BaseModel):
-    user_1_id: int
-    user_2_id: int
+    user_1: str = Field(..., min_length=1, max_length=150)
+    user_2: str = Field(..., min_length=1, max_length=150)
 
 
 class RealtimePost(BaseModel):
-    user_1: str
-    user_2: str
+    user_1: str = Field(..., min_length=1, max_length=150)
+    user_2: str = Field(..., min_length=1, max_length=150)
     connected: bool
-    organisations: List[str]
+    organisations: List[str] = None
 
 
 class RealtimeDB(RealtimePost):
     id: int
     registered_at: datetime
+
+
+class RealtimeOut(BaseModel):
+    registered_at: datetime
+    connected: bool
+    organisations: List[str] = None

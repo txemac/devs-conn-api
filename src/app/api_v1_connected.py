@@ -8,10 +8,13 @@ from sqlalchemy.orm import Session
 from starlette.status import HTTP_200_OK
 
 from app.utils import get_connections
-from data import get_db
 from data.api_clients import github_api_client
 from data.api_clients import twitter_api_client
-from data.models.realtime import Realtime
+from data.database import get_db
+from data.database.organisation import Organisation
+from data.database.realtime import Realtime
+from data.schemas import RealtimeGet
+from data.schemas import RealtimeOut
 from data.schemas import RealtimePost
 
 api_v1_connected = APIRouter()
@@ -60,3 +63,33 @@ def get_real_time(
     )
 
     return response
+
+
+@api_v1_connected.get('/register/{dev1}/{dev2}', status_code=HTTP_200_OK)
+def get_registers(
+        *,
+        db_session: Session = Depends(get_db),
+        dev1: str,
+        dev2: str,
+) -> List[RealtimeOut]:
+    realtimes = Realtime.get_all_by_users(
+        db_session=db_session,
+        data=RealtimeGet(
+            user_1=dev1,
+            user_2=dev2,
+        )
+    )
+
+    result = []
+    for realtime in realtimes:
+        new = RealtimeOut(
+            registered_at=realtime.registered_at,
+            connected=realtime.connected,
+        )
+        if realtime.connected is True:
+            new.organisations = Organisation.get_names_from_ids(db_session=db_session, ids=realtime.organisations)
+        else:
+            del new.__dict__["organisations"]
+        result.append(new)
+
+    return result

@@ -9,10 +9,10 @@ from sqlalchemy_utils import drop_database
 from starlette.testclient import TestClient
 
 from app.main import app
-from data import Base
-from data import get_db
-from data.models.organisation import Organisation
-from data.models.user import User
+from data.database import Base
+from data.database import get_db
+from data.database.organisation import Organisation
+from data.database.user import User
 from data.schemas import OrganisationPost
 from data.schemas import UserPost
 

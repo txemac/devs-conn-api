@@ -13,9 +13,9 @@ def mock_twitter_api_client(mocker):
 
 def test_get_friends_ok(mock_twitter_api_client):
     user = Mock()
-    user.screen_name = 'fever'
+    user.screen_name = 'jobandtalent'
     mock_twitter_api_client.GetFriends.return_value = [user]
-    assert twitter_api_client.get_friends(username='txemac') == ['fever']
+    assert twitter_api_client.get_friends(username='txemac') == ['jobandtalent']
 
 
 def test_get_friends_error(mock_twitter_api_client):

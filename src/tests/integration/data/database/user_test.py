@@ -1,4 +1,4 @@
-from data.models.user import User
+from data.database.user import User
 from data.schemas import UserPost
 
 

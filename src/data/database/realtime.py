@@ -11,9 +11,9 @@ from sqlalchemy import String
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-from data import Base
-from data.models.organisation import Organisation
-from data.models.user import User
+from data.database import Base
+from data.database.organisation import Organisation
+from data.database.user import User
 from data.schemas import RealtimeDB
 from data.schemas import RealtimeGet
 from data.schemas import RealtimePost
@@ -22,7 +22,7 @@ from data.schemas import RealtimePost
 class Realtime(Base):
     __tablename__ = "realtime"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     user_1_id = Column(Integer, ForeignKey("user.id"))
     user_2_id = Column(Integer, ForeignKey("user.id"))
     connected = Column(Boolean, nullable=False)
@@ -55,13 +55,15 @@ class Realtime(Base):
         """
         user_1 = User.get_or_create_by_name(db_session=db_session, name=data.user_1)
         user_2 = User.get_or_create_by_name(db_session=db_session, name=data.user_2)
-        organisations = [Organisation.get_or_create_by_name(db_session=db_session, name=name) for name in
-                         data.organisations]
+
+        organisations_id = Organisation.get_ids_from_names(db_session=db_session, names=data.organisations) \
+            if data.connected is True else None
+
         transaction = Realtime(
             user_1_id=user_1.id,
             user_2_id=user_2.id,
             connected=data.connected,
-            organisations=[organisation.id for organisation in organisations],
+            organisations=organisations_id
         )
         db_session.add(transaction)
         db_session.commit()
@@ -77,9 +79,14 @@ class Realtime(Base):
 
         :param Session db_session: database session
         :param RealtimeGet data: data
-        :return:
+        :return Realtime: list realtime
         """
+        """
+        select * from realtime where user_1_id in (1, 2) and user_2_id in (1, 2);
+        """
+        user_1 = User.get_by_name(db_session=db_session, name=data.user_1)
+        user_2 = User.get_by_name(db_session=db_session, name=data.user_2)
+
         return db_session.query(cls) \
-            .filter(and_(cls.user_1_id == data.user_1_id, cls.user_2_id == data.user_2_id)) \
-            .filter(and_(cls.user_2_id == data.user_1_id, cls.user_1_id == data.user_2_id)) \
-            .all()
+            .filter(and_(cls.user_1_id.in_([user_1.id, user_2.id]), cls.user_2_id.in_([user_1.id, user_2.id]))) \
+            .all() if None not in [user_1, user_2] else []

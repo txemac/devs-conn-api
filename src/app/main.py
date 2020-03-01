@@ -4,6 +4,10 @@ import uvicorn
 from fastapi import FastAPI
 
 from app.api_v1_connected import api_v1_connected
+from data.database import Base
+from data.database import engine
+
+Base.metadata.create_all(bind=engine)
 
 
 def create_app() -> FastAPI:

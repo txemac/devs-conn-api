@@ -2,14 +2,14 @@ from abc import ABC
 from abc import abstractmethod
 from typing import Optional
 
-from domain.model.user import User
+from domain.model.dev import Dev
 
 
-class UserReaderRepository(ABC):
+class DevReaderRepository(ABC):
 
     @abstractmethod
-    def detail_user_by_name(
+    def detail_dev_by_name(
             self,
             name: str,
-    ) -> Optional[User]:
+    ) -> Optional[Dev]:
         pass

@@ -10,7 +10,7 @@ class RegisterReaderRepository(ABC):
     @abstractmethod
     def list_registers_by_users(
             self,
-            user_1: str,
-            user_2: str,
+            dev1: int,
+            dev2: int,
     ) -> List[Register]:
         pass

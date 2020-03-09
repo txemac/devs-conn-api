@@ -1,4 +1,4 @@
-class User:
+class Dev:
     def __init__(
             self,
             id: int,

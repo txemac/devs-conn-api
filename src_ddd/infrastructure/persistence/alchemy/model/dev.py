@@ -4,7 +4,7 @@ from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy import func
 
-from data.database import Base
+from infrastructure.persistence.alchemy.model import Base
 
 
 class Dev(Base):

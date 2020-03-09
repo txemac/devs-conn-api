@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 
 from sqlalchemy import ARRAY
@@ -9,7 +10,7 @@ from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy import func
 
-from data.database import Base
+from infrastructure.persistence.alchemy.model import Base
 
 
 class Register(Base):
@@ -24,12 +25,16 @@ class Register(Base):
 
     def __init__(
             self,
+            id: int,
             dev1_id: int,
             dev2_id: int,
             connected: bool,
             organisations: List[str],
+            registered_at: datetime,
     ):
+        self.id = id
         self.dev1_id = dev1_id
         self.dev2_id = dev2_id
         self.connected = connected
         self.organisations = organisations
+        self.registered_at = registered_at

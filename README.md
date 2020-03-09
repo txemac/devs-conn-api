@@ -135,3 +135,7 @@ http://127.0.0.1:8000/docs or http://127.0.0.1:8000/redoc
 ## Future task
 - Twitter API: to improve the connections.
 - Twitter API: manage the error: rate limit.
+
+
+* En nuestro dominio no se guardan los seguidores u organizaciones de un usuario xq pueden cambiar. Hay q calcularlo en el
+ momento de ver si estan conectados.

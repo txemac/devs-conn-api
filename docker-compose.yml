@@ -9,7 +9,7 @@ services:
     ports:
       - 8000:8000
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db/postgres_db
+      - DATABASE_URL=postgresql://postgres:postgres@db/dev_conn_db
   db:
     image: postgres:12.1-alpine
     volumes:
@@ -17,7 +17,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres_db
+      - POSTGRES_DB=dev_conn_db
     ports:
       - 5432:5432
 

@@ -1,4 +1,4 @@
-fastapi==0.50.0
+fastapi==0.65.2
 psycopg2-binary==2.8.4
 PyGithub==1.46
 python-twitter==3.5
